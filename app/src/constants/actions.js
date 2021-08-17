@@ -1,0 +1,2 @@
+export const LIST_STARTUPS = 'LIST_STARTUPS'
+export const CREATE_STARTUP = 'CREATE_STARTUP'
