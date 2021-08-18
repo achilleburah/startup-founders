@@ -16,6 +16,7 @@ export const createStartup = async (req, res) => {
   const reqBody = req.body
   const newStartup = new Startup(reqBody)
 
+  console.log('Create Startup: ', reqBody, newStartup)
   try {
     await newStartup.save()
     console.log('Created Startup', newStartup)

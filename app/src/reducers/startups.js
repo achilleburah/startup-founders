@@ -11,8 +11,6 @@ export default (state = defaultState, action) => {
 
   switch (type) {
     case LIST_STARTUPS:
-      console.log('List Startup Reducer Paylod', payload)
-
       return {
         ...state,
         list: [...payload]
