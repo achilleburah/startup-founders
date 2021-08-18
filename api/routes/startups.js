@@ -1,16 +1,16 @@
 import express from 'express'
 import {
   createStartup,
-  getStartupDetails,
-  listStartups
+  listStartups,
+  updateStartup
 } from '../controllers/startup.js'
 
 const StartupRouter = express.Router()
 
 // Startup Routes
-StartupRouter.get('/list', listStartups)
-StartupRouter.get('/details', getStartupDetails)
-StartupRouter.post('/create', createStartup)
+StartupRouter.get('/', listStartups)
+StartupRouter.post('/', createStartup)
 
+StartupRouter.patch('/:id', updateStartup)
 
 export default StartupRouter

@@ -10,13 +10,14 @@ import {
 import { useState } from 'react'
 import useStyles from './styles'
 
-export const StartupCard = ({ startup }) => {
+export const StartupCard = ({ startup, handleEdit }) => {
   const classes = useStyles()
   const [expanded, setExpanded] = useState(false)
 
   const handleExpandClick = () => {
     setExpanded(!expanded)
   }
+
   return (
     <Card className={classes.container} variant='outlined'>
       <CardContent>
@@ -47,6 +48,9 @@ export const StartupCard = ({ startup }) => {
       <CardActions>
         <Button size='small' onClick={handleExpandClick}>
           Plus d'infos
+        </Button>
+        <Button size='small' onClick={() => handleEdit(startup._id)}>
+          Modifier la Startup
         </Button>
       </CardActions>
     </Card>

@@ -1,8 +1,10 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:3000/'
+export const fetchStartups = async () =>
+  axios.get(process.env.REACT_APP_BASE_URL + 'startup/')
 
-export const fetchStartups = () => axios.get(BASE_URL + 'startup/list')
+export const createStartup = async startup =>
+  axios.post(process.env.REACT_APP_BASE_URL + 'startup/', startup)
 
-export const createStartup = startup =>
-  axios.post(BASE_URL + 'startup/create', startup)
+export const updateStartup = async (selectedId, startup) =>
+  axios.patch(process.env.REACT_APP_BASE_URL + `startup/${selectedId}`, startup)

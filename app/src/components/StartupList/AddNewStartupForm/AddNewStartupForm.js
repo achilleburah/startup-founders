@@ -1,39 +1,52 @@
-import {
-  Box,
-  Button,
-  Grid,
-  Modal,
-  Paper,
-  TextField,
-  Typography
-} from '@material-ui/core'
+import { Button, Modal, Paper, TextField, Typography } from '@material-ui/core'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { createStartup } from '../../actions/startups'
+import { useDispatch, useSelector } from 'react-redux'
+import { createStartup, updateStartup } from '../../../actions/startups'
 import useStyles from './styles'
 
-export const AddNewStartupForm = ({ open, handleClose }) => {
+export const AddNewStartupForm = ({ open, editingStartupId, handleClose }) => {
   const classes = useStyles()
   const dispatch = useDispatch()
+
+  const editingStartup = useSelector(state =>
+    editingStartupId
+      ? state.startups.list.find(startup => startup._id === editingStartupId)
+      : null
+  )
+
+  useEffect(() => {
+    if (editingStartup) setFormData(editingStartup)
+  }, [editingStartup, editingStartupId])
+
   const [formData, setFormData] = useState({
-    name: 'CP',
-    city: 'Paris',
-    country: 'France',
-    creationDate: '2021-07-13',
-    headline: 'Shazam',
-    description: 'Lorem Ipsum'
+    name: '',
+    city: '',
+    country: '',
+    creationDate: '',
+    headline: '',
+    description: ''
   })
 
   const handleSubmit = e => {
     e.preventDefault()
     handleClose()
-    dispatch(createStartup(formData))
+
+    if (editingStartupId) {
+      dispatch(updateStartup(editingStartupId, formData))
+    } else {
+      dispatch(createStartup(formData))
+    }
   }
-  console.log('Open', open)
 
   return (
     <Modal open={open} onClose={handleClose} className={classes.modal}>
       <Paper className={classes.paper}>
+        <Typography variant='h2' className={classes.formTitle}>
+          {editingStartupId
+            ? 'Créer une nouvelle startup'
+            : ' Modifier la startup'}
+        </Typography>
+
         <Typography variant='h2' className={classes.formTitle}>
           Créer une nouvelle startup
         </Typography>

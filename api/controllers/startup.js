@@ -1,9 +1,10 @@
+import mongoose from 'mongoose'
 import Startup from '../models/startup.js'
 
 export const listStartups = async (req, res) => {
   try {
-    console.log('GEtting Startups')
     const startupList = await Startup.find()
+    console.log('Getting Startups: ', startupList)
 
     res.status(200).send(startupList)
   } catch (error) {
@@ -13,10 +14,8 @@ export const listStartups = async (req, res) => {
 }
 
 export const createStartup = async (req, res) => {
-  const reqBody = req.body
-  const newStartup = new Startup(reqBody)
+  const newStartup = new Startup(req.body)
 
-  console.log('Create Startup: ', reqBody, newStartup)
   try {
     await newStartup.save()
     console.log('Created Startup', newStartup)
@@ -27,9 +26,20 @@ export const createStartup = async (req, res) => {
   }
 }
 
-export const getStartupDetails = async (req, res) => {
-  try {
-  } catch (error) {
-    res.send('Error Creating Startup')
+export const updateStartup = async (req, res) => {
+  const { id: _id } = req.params
+  console.log('Updating Startup with id:', _id)
+
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    console.error('No startup with this id')
+    return res.status(404).send('No startup with this id')
   }
+
+  try {
+    const updatedstartup = await Startup.findByIdAndUpdate(_id, {
+      _id,
+      ...req.body
+    })
+    res.status(201).send(updateStartup)
+  } catch (error) {}
 }
