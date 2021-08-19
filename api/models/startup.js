@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const startupSchema = mongoose.Schema({
   id: Number,
@@ -10,8 +10,8 @@ const startupSchema = mongoose.Schema({
   description: String,
   createdAt: {
     type: Date,
-    default: new Date()
-  }
-})
+    default: new Date(),
+  },
+});
 
-export default mongoose.model('Startup', startupSchema)
+export default mongoose.model('Startup', startupSchema);

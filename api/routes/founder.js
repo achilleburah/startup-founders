@@ -1,9 +1,9 @@
-import express from 'express'
-import { getFounder } from '../controllers/founder.js'
+import express from 'express';
+import { getFounder } from '../controllers/founder.js';
 
-const FounderRouter = express.Router()
+const FounderRouter = express.Router();
 
 // Founder Routes
-FounderRouter.get('/get', getFounder)
+FounderRouter.get('/get', getFounder);
 
-export default FounderRouter
+export default FounderRouter;

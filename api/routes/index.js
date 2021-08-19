@@ -1,11 +1,11 @@
-import express from 'express'
+import express from 'express';
 
-import FounderRouter from './founder.js'
-import StartupRouter from './startups.js'
+import FounderRouter from './founder.js';
+import StartupRouter from './startups.js';
 
-const router = express.Router()
+const router = express.Router();
 
-router.use('/startup', StartupRouter)
-router.use('/founder', FounderRouter)
+router.use('/startup', StartupRouter);
+router.use('/founder', FounderRouter);
 
-export default router
+export default router;

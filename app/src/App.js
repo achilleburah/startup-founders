@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { Box, Container, Typography } from '@material-ui/core'
 
 import './App.css'
-import { StartupList } from './components/StartupList/StartupList.js'
+import { StartupList } from './components/Startup/List/List.js'
 import { useEffect } from 'react'
 import { fetchStartupList } from './actions/startups'
 

@@ -1,10 +1,11 @@
-import { makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core';
 
-export default makeStyles(theme => ({
+export default makeStyles((theme) => ({
   modal: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    horizontalPadding: theme.spacing(20)
   },
   root: {
     '& .MuiTextField-root': {
@@ -20,4 +21,4 @@ export default makeStyles(theme => ({
     flex: 1,
     padding: theme.spacing(2)
   }
-}))
+}));
