@@ -1,9 +1,10 @@
 import express from 'express';
-import { getFounder } from '../controllers/founder.js';
+import createFounder from '../controllers/founder.js';
 
 const FounderRouter = express.Router();
 
 // Founder Routes
-FounderRouter.get('/get', getFounder);
+// FounderRouter.get('/:startupId', listFounders);
+FounderRouter.post('/:id', createFounder);
 
 export default FounderRouter;

@@ -8,10 +8,17 @@ const startupSchema = mongoose.Schema({
   creationDate: Date,
   headline: String,
   description: String,
+  founders: [
+    {
+      firstName: String,
+      lastName: String,
+      jobTitle: String
+    }
+  ],
   createdAt: {
     type: Date,
-    default: new Date(),
-  },
+    default: new Date()
+  }
 });
 
 export default mongoose.model('Startup', startupSchema);

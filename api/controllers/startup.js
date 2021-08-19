@@ -21,7 +21,7 @@ export const createStartup = async (req, res) => {
   } catch (error) {
     console.error('[StartupController:createStartup]', error);
     res.status(400).send({
-      message: 'Error Creating Startup',
+      message: 'Error Creating Startup'
     });
   }
 };
@@ -34,22 +34,20 @@ export const updateStartup = async (req, res) => {
   }
 
   try {
-    const updatedStartup = await Startup.findOneAndUpdate(
-      { _id: _id },
-      req.body,
-      { useFindAndModify: false },
-    );
+    const updatedStartup = await Startup.findOneAndUpdate({ _id }, req.body, {
+      useFindAndModify: false
+    });
     console.log('Updated', updatedStartup);
-    res.status(200).send({
+    return res.status(200).send({
       message: 'Successfully updated Startup',
       updatedStartup: {
         _id,
-        ...req.body,
-      },
+        ...req.body
+      }
     });
   } catch (error) {
     console.error('[StartupController:updateStartup]', error);
-    res.status(400).send({ message: error.message });
+    return res.status(400).send({ message: error.message });
   }
 };
 
@@ -62,10 +60,15 @@ export const deleteStartup = async (req, res) => {
   }
 
   try {
-    await Startup.findByIdAndRemove(_id);
-    res.status(200).send({ message: 'Successfully deleted Startup' });
+    await Startup.findOneAndRemove(
+      { _id },
+      {
+        useFindAndModify: false
+      }
+    );
+    return res.status(200).send({ message: 'Successfully deleted Startup' });
   } catch (error) {
     console.error('[StartupController:deleteStartup]', error);
-    res.status(400).send({ message: error.message });
+    return res.status(400).send({ message: error.message });
   }
 };

@@ -8,10 +8,9 @@ import {
 
 export const fetchStartupList = () => async (dispatch) => {
   try {
-    const { data } = await api.fetchStartups();
+    const res = await api.fetchStartups();
     /// TODO : dispatch based on api response
-
-    dispatch({ type: LOAD_STARTUPS_SUCCESS, payload: data });
+    dispatch({ type: LOAD_STARTUPS_SUCCESS, payload: res.data });
   } catch (error) {
     console.error('[actions:fetchStartupList]', error);
   }
@@ -21,7 +20,6 @@ export const createStartup = (startup) => async (dispatch) => {
   try {
     const res = await api.createStartup(startup);
     /// TODO : dispatch based on api response
-    console.log('created ? ', res.data);
 
     dispatch({
       type: CREATE_STARTUP_SUCCESS,

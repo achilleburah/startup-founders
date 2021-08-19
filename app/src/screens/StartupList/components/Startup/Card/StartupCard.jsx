@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -9,15 +10,19 @@ import {
   Modal,
   Typography
 } from '@material-ui/core';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteStartup } from '../../../actions/startups';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteStartup } from '../../../../../actions/startups';
 import useStyles from './styles';
+import FounderCard from '../../Founder/Card/FounderCard';
 
-export const StartupCard = ({ startup, handleEdit }) => {
+export default ({ startupId, handleEdit, handleAddFounder }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const startup = useSelector((state) =>
+    state.startups.list.find((s) => s._id === startupId)
+  );
+
   const dispatch = useDispatch();
 
   const handleExpandClick = () => {
@@ -25,12 +30,15 @@ export const StartupCard = ({ startup, handleEdit }) => {
   };
 
   const handleDelete = () => {
-    console.log('handleDelete', startup._id);
     dispatch(deleteStartup(startup._id));
     setShowConfirmationModal(false);
   };
 
-  const date = new Date(startup.creationDate).toLocaleDateString();
+  // const date = new Date(startup.creationDate).toLocaleDateString();
+
+  useEffect(() => {
+    console.log('Startup Change', startup);
+  }, [startup]);
 
   return (
     <Card className={classes.container} variant='outlined'>
@@ -64,7 +72,7 @@ export const StartupCard = ({ startup, handleEdit }) => {
                 color='primary'
                 onClick={() => setShowConfirmationModal(false)}
               >
-                J'ai changé d'avis.
+                J`&apos;ai changé d`&apos;avis.
               </Button>
             </CardActions>
           </Card>
@@ -76,20 +84,46 @@ export const StartupCard = ({ startup, handleEdit }) => {
             {startup.name}
           </Typography>
           {startup.city && (
-            <Typography variant='h6'>{' | ' + startup.city}</Typography>
+            <Typography variant='h6'>{'| ' + startup.city}</Typography>
           )}
           {startup.country && (
             <Typography variant='h6'>{', ' + startup.country}</Typography>
           )}
           {startup.creationDate && (
-            <Typography variant='h6'>{', ' + date}</Typography>
+            <Typography variant='h6'>{', ' + startup.creationDate}</Typography>
           )}
         </Box>
         <Typography variant='body1'>{startup.headline}</Typography>
       </CardContent>
       <Collapse in={expanded} unmountOnExit>
         <CardContent>
+          <Typography variant='subtitle2'>
+            Description de l&apos;entreprise
+          </Typography>
           <Typography variant='body2'>{startup.description}</Typography>
+          {startup.founders.length > 0 ? (
+            <Box display='flex'>
+              <Typography variant='subtitle2'> Fondateurs</Typography>
+              {startup.founders.map((founder) => (
+                <FounderCard key={founder._id} founder={founder} />
+              ))}
+            </Box>
+          ) : (
+            <Box display='flex'>
+              <Typography variant='subtitle2'>
+                Pas d&apos;information sur les fondateurs
+              </Typography>
+            </Box>
+          )}
+
+          <Button
+            size='small'
+            variant='outlined'
+            color='primary'
+            onClick={() => handleAddFounder(startup._id)}
+          >
+            Ajouter un fondateur
+          </Button>
         </CardContent>
       </Collapse>
 
@@ -100,7 +134,7 @@ export const StartupCard = ({ startup, handleEdit }) => {
           color='primary'
           onClick={handleExpandClick}
         >
-          Plus d'infos
+          Plus d`&apos;infos
         </Button>
         <Button
           size='medium'

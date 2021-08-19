@@ -1,17 +1,17 @@
-import { useDispatch } from 'react-redux'
-import { Box, Container, Typography } from '@material-ui/core'
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Box, Container, Typography } from '@material-ui/core';
 
-import './App.css'
-import { StartupList } from './components/Startup/List/List.js'
-import { useEffect } from 'react'
-import { fetchStartupList } from './actions/startups'
+import './App.css';
+import StartupList from './screens/StartupList/StartupList';
+import { fetchStartupList } from './actions/startups';
 
 const App = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchStartupList())
-  }, [dispatch])
+    dispatch(fetchStartupList());
+  }, [dispatch]);
 
   return (
     <Container>
@@ -23,7 +23,7 @@ const App = () => {
 
       <StartupList />
     </Container>
-  )
-}
+  );
+};
 
-export default App
+export default App;

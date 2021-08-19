@@ -1,4 +1,5 @@
 import {
+  CREATE_FOUNDER_SUCCESS,
   CREATE_STARTUP_SUCCESS,
   DELETE_STARTUP_SUCCESS,
   LOAD_STARTUPS_SUCCESS,
@@ -6,7 +7,6 @@ import {
 } from '../constants/actions';
 
 const defaultState = {
-  selected: null,
   list: []
 };
 
@@ -40,6 +40,27 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         list: state.list.filter((startup) => startup._id !== payload && startup)
+      };
+
+    // case CREATE_FOUNDER_SUCCESS:
+    //   return {
+    //     ...state,
+    //     list: state.list.map((startup) =>
+    //       startup._id === payload.startupId
+    //         ? startup.founders.push(payload.founder)
+    //         : startup
+    //     )
+    //   };
+
+    case CREATE_FOUNDER_SUCCESS:
+      return {
+        ...state,
+        list: state.list.map((startup) => {
+          if (startup._id === payload.startupId) {
+            startup.founders.push(payload.founder);
+          }
+          return startup;
+        })
       };
 
     default:

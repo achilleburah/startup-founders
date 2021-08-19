@@ -1,15 +1,14 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
-const founderSchema = mongoose.Shema({
+const founderSchema = mongoose.Schema({
   id: Number,
-  first_name: String,
-  last_name: String,
+  firstName: String,
+  lastName: String,
   jobTitle: String,
-  startup: {
-    type: Schema.Types.ObjectId,
-    ref: 'Startup',
-  },
-  story: Text,
-})
+  startupId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Startup'
+  }
+});
 
-export default mongoose.model('Founder', founderSchema)
+export default mongoose.model('Founder', founderSchema);

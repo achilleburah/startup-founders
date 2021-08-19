@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -6,12 +7,11 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createStartup, updateStartup } from '../../../actions/startups';
+import { createStartup, updateStartup } from '../../../../../actions/startups';
 import useStyles from './styles';
 
-export const StartupForm = ({ open, editingStartupId, handleClose }) => {
+export default ({ open, editingStartupId, handleClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -21,23 +21,6 @@ export const StartupForm = ({ open, editingStartupId, handleClose }) => {
       : null
   );
 
-  useEffect(() => {
-    if (editingStartup) {
-      const creationDate = editingStartup.creationDate
-        ? new Date(editingStartup.creationDate).toISOString().split('T')[0]
-        : null;
-
-      setFormData({
-        name: editingStartup.name,
-        city: editingStartup.city,
-        country: editingStartup.country,
-        creationDate: creationDate,
-        headline: editingStartup.headline,
-        description: editingStartup.description
-      });
-    }
-  }, [editingStartup, editingStartupId]);
-
   const [formData, setFormData] = useState({
     name: '',
     city: '',
@@ -46,6 +29,23 @@ export const StartupForm = ({ open, editingStartupId, handleClose }) => {
     headline: '',
     description: ''
   });
+
+  useEffect(() => {
+    if (editingStartup) {
+      const formatedCreationDate = editingStartup.creationDate
+        ? new Date(editingStartup.creationDate).toISOString().split('T')[0]
+        : null;
+
+      setFormData({
+        name: editingStartup.name,
+        city: editingStartup.city,
+        country: editingStartup.country,
+        creationDate: formatedCreationDate,
+        headline: editingStartup.headline,
+        description: editingStartup.description
+      });
+    }
+  }, [editingStartup, editingStartupId]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

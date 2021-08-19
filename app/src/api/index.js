@@ -14,3 +14,6 @@ export const updateStartup = async (selectedId, startup) =>
 
 export const deleteStartup = async (startupId) =>
   axios.delete(process.env.REACT_APP_BASE_URL + `startup/${startupId}`);
+
+export const createFounder = async (startupId, founder) =>
+  axios.post(process.env.REACT_APP_BASE_URL + `founder/${startupId}`, founder);

@@ -1,26 +1,31 @@
+import React, { useEffect, useState } from 'react';
 import { Box, Button, CircularProgress, Typography } from '@material-ui/core';
-import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { StartupForm } from '../Form/Form.js';
 
-import { StartupCard } from '../Card/Card.js';
+import { StartupForm, FounderForm, StartupCard } from './components';
 
 import useStyles from './styles';
 
-export const StartupList = () => {
+export default () => {
   const startups = useSelector((state) => state.startups.list);
-  const [showFormModal, setShowFormModal] = useState(false);
+  const [showStartupFormModal, setShowStartupFormModal] = useState(false);
+  const [showFounderFormModal, setShowFounderFormModal] = useState(false);
   const [editingStartupId, setEditingStartupId] = useState(null);
 
   const classes = useStyles();
 
   const handleEdit = (id) => {
     setEditingStartupId(id);
-    setShowFormModal(true);
+    setShowStartupFormModal(true);
+  };
+
+  const handleAddFounder = (id) => {
+    setEditingStartupId(id);
+    setShowFounderFormModal(true);
   };
 
   useEffect(() => {
-    console.log('Changed:', startups);
+    console.log('Startups:', startups);
   }, [startups]);
 
   return (
@@ -36,7 +41,7 @@ export const StartupList = () => {
           variant='contained'
           size='large'
           color='primary'
-          onClick={() => setShowFormModal(true)}
+          onClick={() => setShowStartupFormModal(true)}
         >
           Ajouter une nouvelle entreprise
         </Button>
@@ -47,8 +52,9 @@ export const StartupList = () => {
           {startups.map((startup) => (
             <StartupCard
               key={startup._id}
-              startup={startup}
+              startupId={startup._id}
               handleEdit={handleEdit}
+              handleAddFounder={handleAddFounder}
             />
           ))}
         </Box>
@@ -57,10 +63,18 @@ export const StartupList = () => {
       )}
 
       <StartupForm
-        open={showFormModal}
+        open={showStartupFormModal}
         editingStartupId={editingStartupId}
         handleClose={() => {
-          setShowFormModal(false);
+          setShowStartupFormModal(false);
+          setEditingStartupId(null);
+        }}
+      />
+      <FounderForm
+        open={showFounderFormModal}
+        editingStartupId={editingStartupId}
+        handleClose={() => {
+          setShowFounderFormModal(false);
           setEditingStartupId(null);
         }}
       />
