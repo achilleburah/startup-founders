@@ -4,12 +4,10 @@ export default makeStyles((theme) => ({
   card: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
     backgroundColor: colors.blue,
-    marginBottom: theme.spacing(2)
-  },
-  cardItem: {
-    flex: 1
+    marginBottom: theme.spacing(2),
+    padding: theme.spacing(2)
   }
 }));

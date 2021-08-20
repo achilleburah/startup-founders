@@ -6,49 +6,46 @@ import {
   UPDATE_STARTUP_SUCCESS
 } from '../constants/actions';
 
+import { toggleError } from './error';
+
 export const fetchStartupList = () => async (dispatch) => {
   try {
-    const res = await api.fetchStartups();
-    /// TODO : dispatch based on api response
-    dispatch({ type: LOAD_STARTUPS_SUCCESS, payload: res.data });
+    const { data } = await api.fetchStartups();
+    dispatch({ type: LOAD_STARTUPS_SUCCESS, payload: data });
   } catch (error) {
-    console.error('[actions:fetchStartupList]', error);
+    dispatch(toggleError(error.message));
   }
 };
 
 export const createStartup = (startup) => async (dispatch) => {
   try {
     const res = await api.createStartup(startup);
-    /// TODO : dispatch based on api response
-
     dispatch({
       type: CREATE_STARTUP_SUCCESS,
       payload: res.data.createdStartup
     });
   } catch (error) {
-    console.error('[actions:createStartup]', error);
+    dispatch(toggleError(error.message));
   }
 };
 
 export const updateStartup = (selectedId, startup) => async (dispatch) => {
   try {
-    const res = await api.updateStartup(selectedId, startup);
-    /// TODO : dispatch based on api response
+    const { data } = await api.updateStartup(selectedId, startup);
     dispatch({
       type: UPDATE_STARTUP_SUCCESS,
-      payload: res.data.updatedStartup
+      payload: data.updatedStartup
     });
   } catch (error) {
-    console.error('[actions:updateStartup]', error);
+    dispatch(toggleError(error.message));
   }
 };
 
 export const deleteStartup = (startupId) => async (dispatch) => {
   try {
-    const res = await api.deleteStartup(startupId);
-    /// TODO : dispatch based on api response
+    await api.deleteStartup(startupId);
     dispatch({ type: DELETE_STARTUP_SUCCESS, payload: startupId });
   } catch (error) {
-    console.error('[actions:updateStartup]', error);
+    dispatch(toggleError(error.message));
   }
 };

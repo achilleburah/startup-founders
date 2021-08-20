@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Button, CircularProgress, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Button, CircularProgress, Grid, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
 import { StartupForm, FounderForm, StartupCard } from './components';
 
-import useStyles from './styles';
+// import useStyles from './styles';
 
 export default () => {
   const startups = useSelector((state) => state.startups.list);
@@ -12,7 +12,7 @@ export default () => {
   const [showFounderFormModal, setShowFounderFormModal] = useState(false);
   const [editingStartupId, setEditingStartupId] = useState(null);
 
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const handleEdit = (id) => {
     setEditingStartupId(id);
@@ -24,43 +24,48 @@ export default () => {
     setShowFounderFormModal(true);
   };
 
-  useEffect(() => {
-    console.log('Startups:', startups);
-  }, [startups]);
-
   return (
-    <Box>
-      <Box
+    <Grid container justifyContent='space-between' alignItems='stretch'>
+      <Grid
+        container
         display='flex'
         flexDirection='row'
         justifyContent='space-between'
+        alignItems='center'
         mb={2}
       >
-        <Typography variant='h2'>Startup List</Typography>
-        <Button
-          variant='contained'
-          size='large'
-          color='primary'
-          onClick={() => setShowStartupFormModal(true)}
-        >
-          Ajouter une nouvelle entreprise
-        </Button>
-      </Box>
+        <Grid item xs={12} sm={6}>
+          <Typography variant='h2' color='textSecondary'>
+            Startup List
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Button
+            variant='contained'
+            size='large'
+            color='primary'
+            onClick={() => setShowStartupFormModal(true)}
+          >
+            Ajouter une nouvelle entreprise
+          </Button>
+        </Grid>
+      </Grid>
 
-      {startups.length > 0 ? (
-        <Box className={classes.startupListContainer}>
-          {startups.map((startup) => (
-            <StartupCard
-              key={startup._id}
-              startupId={startup._id}
-              handleEdit={handleEdit}
-              handleAddFounder={handleAddFounder}
-            />
-          ))}
-        </Box>
-      ) : (
-        <CircularProgress />
-      )}
+      <Grid container alignItems='stretch' spacing={3}>
+        {startups.length > 0 ? (
+          startups.map((startup) => (
+            <Grid key={startup._id} item xs={12} sm={6} md={6}>
+              <StartupCard
+                startupId={startup._id}
+                handleEdit={handleEdit}
+                handleAddFounder={handleAddFounder}
+              />
+            </Grid>
+          ))
+        ) : (
+          <CircularProgress />
+        )}
+      </Grid>
 
       <StartupForm
         open={showStartupFormModal}
@@ -78,6 +83,6 @@ export default () => {
           setEditingStartupId(null);
         }}
       />
-    </Box>
+    </Grid>
   );
 };

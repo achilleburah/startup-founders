@@ -22,7 +22,6 @@ export default (state = defaultState, action) => {
       };
 
     case CREATE_STARTUP_SUCCESS:
-      console.log('REDUCER:', payload);
       return {
         ...state,
         list: [...state.list, payload]
@@ -41,16 +40,6 @@ export default (state = defaultState, action) => {
         ...state,
         list: state.list.filter((startup) => startup._id !== payload && startup)
       };
-
-    // case CREATE_FOUNDER_SUCCESS:
-    //   return {
-    //     ...state,
-    //     list: state.list.map((startup) =>
-    //       startup._id === payload.startupId
-    //         ? startup.founders.push(payload.founder)
-    //         : startup
-    //     )
-    //   };
 
     case CREATE_FOUNDER_SUCCESS:
       return {

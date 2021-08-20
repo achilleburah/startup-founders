@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import clxs from 'clsx';
+
 import {
   Box,
   Button,
@@ -7,10 +10,17 @@ import {
   CardContent,
   Collapse,
   colors,
+  Divider,
+  Grid,
+  IconButton,
   Modal,
   Typography
 } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+
 import { deleteStartup } from '../../../../../actions/startups';
 import useStyles from './styles';
 import FounderCard from '../../Founder/Card/FounderCard';
@@ -34,11 +44,7 @@ export default ({ startupId, handleEdit, handleAddFounder }) => {
     setShowConfirmationModal(false);
   };
 
-  // const date = new Date(startup.creationDate).toLocaleDateString();
-
-  useEffect(() => {
-    console.log('Startup Change', startup);
-  }, [startup]);
+  const date = new Date(startup.creationDate).toLocaleDateString();
 
   return (
     <Card className={classes.container} variant='outlined'>
@@ -50,10 +56,14 @@ export default ({ startupId, handleEdit, handleAddFounder }) => {
         <Box>
           <Card>
             <CardContent color={colors.grey}>
-              <Typography variant='h6' className={classes.title}>
+              <Typography
+                variant='h6'
+                className={classes.title}
+                color='textPrimary'
+              >
                 Êtes-vous sûrs de vouloir supprimer cette startup ?
               </Typography>
-              <Typography variant='caption'>
+              <Typography variant='caption' color='textPrimary'>
                 Une fois effectuée, cette action est irréversible.
               </Typography>
             </CardContent>
@@ -79,79 +89,97 @@ export default ({ startupId, handleEdit, handleAddFounder }) => {
         </Box>
       </Modal>
       <CardContent>
-        <Box display='flex' alignItems='flex-start' flexDirection='row'>
-          <Typography variant='h6' component='h3' className={classes.title}>
-            {startup.name}
-          </Typography>
+        <Typography variant='h5' component='h3' color='textPrimary'>
+          {startup.name}
+        </Typography>
+        <Box display='flex' flexDirection='row' alignItems='flex-start'>
           {startup.city && (
-            <Typography variant='h6'>{'| ' + startup.city}</Typography>
+            <Typography variant='caption' color='textPrimary'>
+              {startup.city}
+            </Typography>
           )}
           {startup.country && (
-            <Typography variant='h6'>{', ' + startup.country}</Typography>
+            <Typography variant='caption' color='textPrimary'>
+              {', ' + startup.country}
+            </Typography>
           )}
           {startup.creationDate && (
-            <Typography variant='h6'>{', ' + startup.creationDate}</Typography>
+            <Typography variant='caption' color='textPrimary'>
+              {', ' + date}
+            </Typography>
           )}
         </Box>
         <Typography variant='body1'>{startup.headline}</Typography>
       </CardContent>
       <Collapse in={expanded} unmountOnExit>
         <CardContent>
-          <Typography variant='subtitle2'>
-            Description de l&apos;entreprise
-          </Typography>
-          <Typography variant='body2'>{startup.description}</Typography>
-          {startup.founders.length > 0 ? (
-            <Box display='flex'>
-              <Typography variant='subtitle2'> Fondateurs</Typography>
-              {startup.founders.map((founder) => (
-                <FounderCard key={founder._id} founder={founder} />
-              ))}
-            </Box>
-          ) : (
-            <Box display='flex'>
-              <Typography variant='subtitle2'>
-                Pas d&apos;information sur les fondateurs
-              </Typography>
-            </Box>
-          )}
+          <Typography variant='body1'>{startup.description}</Typography>
+          <Divider className={classes.divider} />
+          <Grid item xs={12} className={classes.foundersContainer}>
+            <Grid container alignItems='center' justifyContent='center'>
+              <Grid item xs={10}>
+                <Typography variant='subtitle1'>
+                  {startup.founders.length > 0
+                    ? 'Fondateurs'
+                    : `Pas d'information sur les fondateurs`}
+                </Typography>
+              </Grid>
+              <Grid Grid item xs={2}>
+                <IconButton
+                  className={clxs(classes.expand, {
+                    [classes.expandOpen]: expanded
+                  })}
+                  color='primary'
+                  onClick={() => handleAddFounder(startup._id)}
+                >
+                  <AddCircleIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
 
-          <Button
-            size='small'
-            variant='outlined'
-            color='primary'
-            onClick={() => handleAddFounder(startup._id)}
-          >
-            Ajouter un fondateur
-          </Button>
+            <Grid container spacing={3}>
+              {startup.founders.map((founder) => (
+                <Grid key={startup._id} item xs={12} sm={6} md={6}>
+                  <FounderCard key={founder._id} founder={founder} />
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
         </CardContent>
       </Collapse>
 
       <CardActions>
-        <Button
-          size='medium'
-          variant='outlined'
+        <IconButton
+          className={clxs(classes.expand, {
+            [classes.expandOpen]: expanded
+          })}
           color='primary'
           onClick={handleExpandClick}
         >
-          Plus d`&apos;infos
-        </Button>
-        <Button
-          size='medium'
-          variant='outlined'
+          <ExpandMoreIcon />
+        </IconButton>
+
+        <IconButton
+          // className={classes.edit}
           color='primary'
           onClick={() => handleEdit(startup._id)}
         >
-          Modifier la Startup
-        </Button>
-        <Button
+          <EditIcon />
+        </IconButton>
+        <IconButton
+          color='error'
+          onClick={() => setShowConfirmationModal(true)}
+        >
+          <DeleteIcon color='error' />
+        </IconButton>
+        {/* <Button
           size='medium'
           variant='outlined'
           color='secondary'
           onClick={() => setShowConfirmationModal(true)}
         >
           Supprimer la Startup
-        </Button>
+        </Button> */}
       </CardActions>
     </Card>
   );

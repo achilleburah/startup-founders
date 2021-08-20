@@ -25,8 +25,6 @@ export default ({ open, editingStartupId, handleClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleClose();
-
-    console.log('Submiting', formData);
     dispatch(createFounder(editingStartupId, formData));
   };
 

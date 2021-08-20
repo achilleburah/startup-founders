@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Button,
-  Modal,
-  Paper,
-  TextField,
-  Typography
-} from '@material-ui/core';
+import { Button, Grid, Modal, TextField, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { createStartup, updateStartup } from '../../../../../actions/startups';
 import useStyles from './styles';
@@ -72,97 +65,146 @@ export default ({ open, editingStartupId, handleClose }) => {
 
   return (
     <Modal open={open} onClose={resetFormAndClose} className={classes.modal}>
-      <Paper className={classes.paper}>
-        <Box display='flex' flexDirection='column'>
-          <Typography variant='h2' className={classes.formTitle}>
+      <Grid
+        container
+        xs={12}
+        sm={8}
+        md={6}
+        justifyContent='center'
+        className={classes.paper}
+      >
+        <Grid item xs={12} justifyContent='center'>
+          <Typography variant='h4' className={classes.formTitle} align='center'>
             {editingStartupId
-              ? 'Créer une nouvelle startup'
-              : ' Modifier la startup'}
+              ? 'Modifier la startup'
+              : 'Créer une nouvelle startup'}
           </Typography>
+        </Grid>
 
-          <form onSubmit={handleSubmit} className={classes.root}>
-            <TextField
-              name='name'
-              label='Nom'
-              variant='outlined'
-              value={formData.name}
-              onChange={(e) => {
-                setFormData({ ...formData, name: e.target.value });
-              }}
-              autoFocus
-              required
-            />
+        <form onSubmit={handleSubmit} className={classes.root}>
+          <Grid container xs={12} spacing={2}>
+            <Grid item xs={12} md={6}>
+              <TextField
+                name='name'
+                label='Nom'
+                InputLabelProps={{
+                  className: classes.textFieldLabel
+                }}
+                variant='outlined'
+                value={formData.name}
+                onChange={(e) => {
+                  setFormData({ ...formData, name: e.target.value });
+                }}
+                autoFocus
+                fullWidth
+                required
+              />
+            </Grid>
 
-            <TextField
-              name='city'
-              label='Ville'
-              variant='outlined'
-              value={formData.city}
-              onChange={(e) => {
-                setFormData({ ...formData, city: e.target.value });
-              }}
-              required
-            />
+            <Grid item xs={12} md={6}>
+              <TextField
+                name='city'
+                label='Ville'
+                InputLabelProps={{
+                  className: classes.textFieldLabel
+                }}
+                color='textPrimary'
+                variant='outlined'
+                value={formData.city}
+                onChange={(e) => {
+                  setFormData({ ...formData, city: e.target.value });
+                }}
+                fullWidth
+                required
+              />
+            </Grid>
+          </Grid>
+          <Grid container xs={12} spacing={2}>
+            <Grid item xs={12} md={6}>
+              <TextField
+                name='country'
+                label='Pays'
+                InputLabelProps={{
+                  className: classes.textFieldLabel
+                }}
+                variant='outlined'
+                value={formData.country}
+                onChange={(e) => {
+                  setFormData({ ...formData, country: e.target.value });
+                }}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                type='date'
+                name='creationDate'
+                InputLabelProps={{
+                  className: classes.textFieldLabel,
+                  shrink: true
+                }}
+                label='Date de Création'
+                variant='outlined'
+                value={formData.creationDate}
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    creationDate: e.target.value
+                  });
+                }}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                name='headline'
+                label='Résumé'
+                InputLabelProps={{
+                  className: classes.textFieldLabel
+                }}
+                variant='outlined'
+                value={formData.headline}
+                onChange={(e) => {
+                  setFormData({ ...formData, headline: e.target.value });
+                }}
+                fullWidth
+                required
+              />
+            </Grid>
 
-            <TextField
-              name='country'
-              label='Pays'
-              variant='outlined'
-              value={formData.country}
-              onChange={(e) => {
-                setFormData({ ...formData, country: e.target.value });
-              }}
-              required
-            />
-
-            <TextField
-              type='date'
-              name='creationDate'
-              label='Date de Création'
-              variant='outlined'
-              value={formData.creationDate}
-              onChange={(e) => {
-                setFormData({ ...formData, creationDate: e.target.value });
-              }}
-              required
-              InputLabelProps={{
-                shrink: true
-              }}
-            />
-            <TextField
-              name='headline'
-              label='Résumé'
-              variant='outlined'
-              value={formData.headline}
-              onChange={(e) => {
-                setFormData({ ...formData, headline: e.target.value });
-              }}
-              required
-            />
-
-            <TextField
-              name='description'
-              label='Description'
-              variant='outlined'
-              value={formData.description}
-              onChange={(e) => {
-                setFormData({ ...formData, description: e.target.value });
-              }}
-              multiline
-              required
-            />
-
-            <Button
-              type='submit'
-              variant='contained'
-              color='primary'
-              size='large'
-            >
-              Submit
-            </Button>
-          </form>
-        </Box>
-      </Paper>
+            <Grid item xs={12}>
+              <TextField
+                name='description'
+                label='Description'
+                InputLabelProps={{
+                  className: classes.textFieldLabel
+                }}
+                variant='outlined'
+                value={formData.description}
+                onChange={(e) => {
+                  setFormData({ ...formData, description: e.target.value });
+                }}
+                fullWidth
+                multiline
+                required
+              />
+            </Grid>
+            <Grid xs={12}>
+              <Button
+                type='submit'
+                variant='contained'
+                color='primary'
+                size='large'
+                fullWidth
+              >
+                Submit
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Grid>
     </Modal>
   );
 };
