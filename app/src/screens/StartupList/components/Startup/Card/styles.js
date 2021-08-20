@@ -7,7 +7,8 @@ export default makeStyles((theme) => ({
     justifyContent: 'center'
   },
   container: {
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
+    minHeight: 200
   },
   headingItem: {
     marginRight: 10

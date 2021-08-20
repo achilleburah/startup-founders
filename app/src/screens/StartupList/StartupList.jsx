@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { StartupForm, FounderForm, StartupCard } from './components';
 
-// import useStyles from './styles';
+import useStyles from './styles';
 
 export default () => {
   const startups = useSelector((state) => state.startups.list);
@@ -12,7 +12,7 @@ export default () => {
   const [showFounderFormModal, setShowFounderFormModal] = useState(false);
   const [editingStartupId, setEditingStartupId] = useState(null);
 
-  // const classes = useStyles();
+  const classes = useStyles();
 
   const handleEdit = (id) => {
     setEditingStartupId(id);
@@ -32,10 +32,10 @@ export default () => {
         flexDirection='row'
         justifyContent='space-between'
         alignItems='center'
-        mb={2}
+        className={classes.headingContainer}
       >
         <Grid item xs={12} sm={6}>
-          <Typography variant='h2' color='textSecondary'>
+          <Typography variant='h4' component='h2' color='textSecondary'>
             Startup List
           </Typography>
         </Grid>

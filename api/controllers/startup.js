@@ -35,15 +35,13 @@ export const updateStartup = async (req, res) => {
 
   try {
     const updatedStartup = await Startup.findOneAndUpdate({ _id }, req.body, {
+      new: true,
       useFindAndModify: false
     });
     console.log('Updated', updatedStartup);
     return res.status(200).send({
       message: 'Successfully updated Startup',
-      updatedStartup: {
-        _id,
-        ...req.body
-      }
+      updatedStartup
     });
   } catch (error) {
     console.error('[StartupController:updateStartup]', error);

@@ -32,6 +32,7 @@ export const createStartup = (startup) => async (dispatch) => {
 export const updateStartup = (selectedId, startup) => async (dispatch) => {
   try {
     const { data } = await api.updateStartup(selectedId, startup);
+    console.log('UPDATED STARTUP ', data.updatedStartup);
     dispatch({
       type: UPDATE_STARTUP_SUCCESS,
       payload: data.updatedStartup

@@ -25,20 +25,17 @@ import { deleteStartup } from '../../../../../actions/startups';
 import useStyles from './styles';
 import FounderCard from '../../Founder/Card/FounderCard';
 
-export default ({ startupId, handleEdit, handleAddFounder }) => {
+const StartupCard = ({ startupId, handleEdit, handleAddFounder }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
   const startup = useSelector((state) =>
     state.startups.list.find((s) => s._id === startupId)
   );
 
   const dispatch = useDispatch();
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
+  const handleExpandClick = () => setExpanded(!expanded);
   const handleDelete = () => {
     dispatch(deleteStartup(startup._id));
     setShowConfirmationModal(false);
@@ -113,7 +110,7 @@ export default ({ startupId, handleEdit, handleAddFounder }) => {
       </CardContent>
       <Collapse in={expanded} unmountOnExit>
         <CardContent>
-          <Typography variant='body1'>{startup.description}</Typography>
+          <Typography variant='body2'>{startup.description}</Typography>
           <Divider className={classes.divider} />
           <Grid item xs={12} className={classes.foundersContainer}>
             <Grid container alignItems='center' justifyContent='center'>
@@ -184,3 +181,11 @@ export default ({ startupId, handleEdit, handleAddFounder }) => {
     </Card>
   );
 };
+
+StartupCard.propTypes = {
+  startupId: Number.isRequired,
+  handleEdit: Function.isRequired,
+  handleAddFounder: Function.isRequired
+};
+
+export default StartupCard;

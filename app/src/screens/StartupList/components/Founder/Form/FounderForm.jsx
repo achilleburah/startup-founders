@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import useStyles from './styles';
 import { createFounder } from '../../../../../actions/founder';
 
-export default ({ open, editingStartupId, handleClose }) => {
+const FounderForm = ({ open, editingStartupId, handleClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -94,3 +94,11 @@ export default ({ open, editingStartupId, handleClose }) => {
     </Modal>
   );
 };
+
+FounderForm.propTypes = {
+  open: Boolean.isRequired,
+  editingStartupId: Number.isRequired,
+  handleClose: Function.isRequired
+};
+
+export default FounderForm;

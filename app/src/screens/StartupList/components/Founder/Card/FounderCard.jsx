@@ -3,7 +3,7 @@ import React from 'react';
 
 import useStyles from './styles';
 
-export default ({ founder }) => {
+const FounderCard = ({ founder }) => {
   const classes = useStyles();
   return (
     <Card variant='contained' className={classes.card}>
@@ -27,3 +27,13 @@ export default ({ founder }) => {
     </Card>
   );
 };
+
+FounderCard.propTypes = {
+  founder: {
+    firstName: String,
+    lastName: String,
+    jobTitle: String
+  }.isRequired
+};
+
+export default FounderCard;

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createStartup, updateStartup } from '../../../../../actions/startups';
 import useStyles from './styles';
 
-export default ({ open, editingStartupId, handleClose }) => {
+export const StartupForm = ({ open, editingStartupId, handleClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -164,6 +164,9 @@ export default ({ open, editingStartupId, handleClose }) => {
                 InputLabelProps={{
                   className: classes.textFieldLabel
                 }}
+                inputProps={{
+                  maxlength: 90
+                }}
                 variant='outlined'
                 value={formData.headline}
                 onChange={(e) => {
@@ -208,3 +211,11 @@ export default ({ open, editingStartupId, handleClose }) => {
     </Modal>
   );
 };
+
+StartupForm.propTypes = {
+  open: Boolean.isRequired,
+  editingStartupId: Number.isRequired,
+  handleClose: Function.isRequired
+};
+
+export default StartupForm;
