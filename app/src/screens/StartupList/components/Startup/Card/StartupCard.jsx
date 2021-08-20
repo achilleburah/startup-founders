@@ -25,7 +25,6 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { deleteStartup } from '../../../../../actions/startups';
 import useStyles from './styles';
 import FounderCard from '../../Founder/Card/FounderCard';
-import { CardButton } from '../../../../../components';
 
 const StartupCard = ({ startupId, handleEdit, handleAddFounder }) => {
   const classes = useStyles();
