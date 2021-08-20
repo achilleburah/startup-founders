@@ -15,7 +15,7 @@ app.use('/', router);
 mongoose
   .connect(process.env.PASSWORD_CONNECTION_URL, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useUnifiedTopology: true
   })
   .then(() => {
     app.listen(process.env.PORT, () => {
@@ -23,5 +23,5 @@ mongoose
     });
   })
   .catch((error) => {
-    console.error('Error: ', error.message);
+    console.error('Error: ', error, process.env.PASSWORD_CONNECTION_URL);
   });
