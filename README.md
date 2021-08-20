@@ -37,3 +37,5 @@ npm start
 in both folder to start the app and the api.
 
 You're good to go !
+
+You can test the [Startup Founders website](https://startupfounders.netlify.app/)
