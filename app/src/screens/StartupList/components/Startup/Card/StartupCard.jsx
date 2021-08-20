@@ -25,6 +25,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { deleteStartup } from '../../../../../actions/startups';
 import useStyles from './styles';
 import FounderCard from '../../Founder/Card/FounderCard';
+import { CardButton } from '../../../../../components';
 
 const StartupCard = ({ startupId, handleEdit, handleAddFounder }) => {
   const classes = useStyles();
@@ -65,15 +66,16 @@ const StartupCard = ({ startupId, handleEdit, handleAddFounder }) => {
                 Une fois effectuée, cette action est irréversible.
               </Typography>
             </CardContent>
-            <CardActions>
+            <CardActions justifyContent='center' alignItems='center'>
               <Button
                 size='small'
                 variant='outlined'
-                color='secondary'
+                color='primary'
                 onClick={() => handleDelete(startup._id)}
               >
                 Oui, je suis sûr.
               </Button>
+
               <Button
                 size='small'
                 variant='outlined'

@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 
 import useStyles from './styles';
 import { createFounder } from '../../../../../actions/founder';
+import { FormTextField } from '../../../../../components';
 
 const FounderForm = ({ open, editingStartupId, handleClose }) => {
   const classes = useStyles();
