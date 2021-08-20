@@ -1,5 +1,6 @@
 # Startup Founders
 
+## About
 Startup Founders is a simple "Directory" app that allows you to create and store your favorite startups with their founders.
 
 It uses the following technologies :
@@ -14,13 +15,13 @@ It uses the following technologies :
 
 To get started, clone this repository, then :
 
-# For the App
+### For the App
 
 ```bash
 cd app && npm install
 ```
 
-# For the Api
+### For the Api
 
 ```bash
 cd api && npm install
