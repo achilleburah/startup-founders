@@ -42,17 +42,6 @@ export const StartupForm = ({ open, editingStartupId, handleClose }) => {
     }
   }, [editingStartup, editingStartupId]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleClose();
-
-    if (editingStartupId) {
-      dispatch(updateStartup(editingStartupId, formData));
-    } else {
-      dispatch(createStartup(formData));
-    }
-  };
-
   const resetFormAndClose = () => {
     handleClose();
     setFormData({
@@ -63,6 +52,17 @@ export const StartupForm = ({ open, editingStartupId, handleClose }) => {
       headline: '',
       description: ''
     });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    resetFormAndClose();
+
+    if (editingStartupId) {
+      dispatch(updateStartup(editingStartupId, formData));
+    } else {
+      dispatch(createStartup(formData));
+    }
   };
 
   return (

@@ -24,12 +24,6 @@ const FounderForm = ({ open, editingStartupId, handleClose }) => {
     jobTitle: ''
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleClose();
-    dispatch(createFounder(editingStartupId, formData));
-  };
-
   const resetFormAndClose = () => {
     handleClose();
     setFormData({
@@ -37,6 +31,12 @@ const FounderForm = ({ open, editingStartupId, handleClose }) => {
       lastName: '',
       jobTitle: ''
     });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    resetFormAndClose();
+    dispatch(createFounder(editingStartupId, formData));
   };
 
   return (
