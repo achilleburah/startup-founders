@@ -31,7 +31,8 @@ Then update the environment variables (/app/.env and /api/.env) with your own cr
 
 ## Usage
 
-Run ```bash
+Run 
+```bash
 npm start
 ```
 in both folder to start the app and the api.
