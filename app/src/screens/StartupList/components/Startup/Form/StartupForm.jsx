@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Grid, Modal, TextField, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { createStartup, updateStartup } from '../../../../../actions/startups';
 import useStyles from './styles';
 
@@ -67,13 +69,13 @@ export const StartupForm = ({ open, editingStartupId, handleClose }) => {
     <Modal open={open} onClose={resetFormAndClose} className={classes.modal}>
       <Grid
         container
+        item
         xs={12}
-        sm={8}
         md={6}
         justifyContent='center'
         className={classes.paper}
       >
-        <Grid item xs={12} justifyContent='center'>
+        <Grid item xs={12}>
           <Typography variant='h4' className={classes.formTitle} align='center'>
             {editingStartupId
               ? 'Modifier la startup'
@@ -82,7 +84,7 @@ export const StartupForm = ({ open, editingStartupId, handleClose }) => {
         </Grid>
 
         <form onSubmit={handleSubmit} className={classes.root}>
-          <Grid container xs={12} spacing={2}>
+          <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
               <TextField
                 name='name'
@@ -119,7 +121,7 @@ export const StartupForm = ({ open, editingStartupId, handleClose }) => {
               />
             </Grid>
           </Grid>
-          <Grid container xs={12} spacing={2}>
+          <Grid container item xs={12} spacing={2}>
             <Grid item xs={12} md={6}>
               <TextField
                 name='country'
@@ -165,7 +167,7 @@ export const StartupForm = ({ open, editingStartupId, handleClose }) => {
                   className: classes.textFieldLabel
                 }}
                 inputProps={{
-                  maxlength: 90
+                  maxlength: 200
                 }}
                 variant='outlined'
                 value={formData.headline}
@@ -194,17 +196,15 @@ export const StartupForm = ({ open, editingStartupId, handleClose }) => {
                 required
               />
             </Grid>
-            <Grid xs={12}>
-              <Button
-                type='submit'
-                variant='contained'
-                color='primary'
-                size='large'
-                fullWidth
-              >
-                Submit
-              </Button>
-            </Grid>
+            <Button
+              type='submit'
+              variant='contained'
+              color='primary'
+              size='large'
+              fullWidth
+            >
+              Submit
+            </Button>
           </Grid>
         </form>
       </Grid>
@@ -212,10 +212,14 @@ export const StartupForm = ({ open, editingStartupId, handleClose }) => {
   );
 };
 
+StartupForm.defaultProps = {
+  editingStartupId: null
+};
+
 StartupForm.propTypes = {
-  open: Boolean.isRequired,
-  editingStartupId: Number.isRequired,
-  handleClose: Function.isRequired
+  open: PropTypes.bool.isRequired,
+  editingStartupId: PropTypes.number,
+  handleClose: PropTypes.func.isRequired
 };
 
 export default StartupForm;

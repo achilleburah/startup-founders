@@ -1,12 +1,13 @@
 import { Card, Grid, Typography } from '@material-ui/core';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import useStyles from './styles';
 
 const FounderCard = ({ founder }) => {
   const classes = useStyles();
   return (
-    <Card variant='contained' className={classes.card}>
+    <Card className={classes.card}>
       <Grid container spacing={2}>
         <Grid item>
           <Typography className={classes.cardItem} variant='subtitle2'>
@@ -16,12 +17,12 @@ const FounderCard = ({ founder }) => {
         <Grid item>
           <Typography className={classes.cardItem} variant='subtitle2'>
             {founder.lastName + ', '}
-          </Typography>{' '}
+          </Typography>
         </Grid>
         <Grid item>
           <Typography className={classes.cardItem} variant='caption'>
             {founder.jobTitle}
-          </Typography>{' '}
+          </Typography>
         </Grid>
       </Grid>
     </Card>
@@ -29,11 +30,11 @@ const FounderCard = ({ founder }) => {
 };
 
 FounderCard.propTypes = {
-  founder: {
-    firstName: String,
-    lastName: String,
-    jobTitle: String
-  }.isRequired
+  founder: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    jobTitle: PropTypes.string
+  }).isRequired
 };
 
 export default FounderCard;

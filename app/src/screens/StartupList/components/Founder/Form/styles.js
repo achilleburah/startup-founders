@@ -13,12 +13,17 @@ export default makeStyles((theme) => ({
     }
   },
   paper: {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    backgroundColor: '#FFFFFF',
+    borderRadius: 25
   },
   formTitle: { padding: theme.spacing(2) },
   inputField: {
     display: 'flex',
     flex: 1,
     padding: theme.spacing(2)
+  },
+  textFieldLabel: {
+    color: '#001133'
   }
 }));

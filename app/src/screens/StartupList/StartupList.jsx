@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { Button, CircularProgress, Grid, Typography } from '@material-ui/core';
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  Hidden,
+  Typography
+} from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
 import { StartupForm, FounderForm, StartupCard } from './components';
@@ -29,21 +35,24 @@ export default () => {
       <Grid
         container
         display='flex'
-        flexDirection='row'
         justifyContent='space-between'
         alignItems='center'
         className={classes.headingContainer}
+        spacing={2}
       >
-        <Grid item xs={12} sm={6}>
-          <Typography variant='h4' component='h2' color='textSecondary'>
-            Startup List
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={6}>
+        <Hidden only='xs'>
+          <Grid item xs={12} sm={6}>
+            <Typography variant='h4' component='h2' color='textSecondary'>
+              Startup List
+            </Typography>
+          </Grid>
+        </Hidden>
+
+        <Grid container item xs={12} sm={6} justifyContent='flex-end'>
           <Button
             variant='contained'
             size='large'
-            color='primary'
+            color='secondary'
             onClick={() => setShowStartupFormModal(true)}
           >
             Ajouter une nouvelle entreprise
@@ -54,7 +63,7 @@ export default () => {
       <Grid container alignItems='stretch' spacing={3}>
         {startups.length > 0 ? (
           startups.map((startup) => (
-            <Grid key={startup._id} item xs={12} sm={6} md={6}>
+            <Grid item key={startup._id} xs={12} md={6}>
               <StartupCard
                 startupId={startup._id}
                 handleEdit={handleEdit}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import clxs from 'clsx';
+import PropTypes from 'prop-types';
 
 import {
   Box,
@@ -121,7 +122,7 @@ const StartupCard = ({ startupId, handleEdit, handleAddFounder }) => {
                     : `Pas d'information sur les fondateurs`}
                 </Typography>
               </Grid>
-              <Grid Grid item xs={2}>
+              <Grid item xs={2}>
                 <IconButton
                   className={clxs(classes.expand, {
                     [classes.expandOpen]: expanded
@@ -136,8 +137,8 @@ const StartupCard = ({ startupId, handleEdit, handleAddFounder }) => {
 
             <Grid container spacing={3}>
               {startup.founders.map((founder) => (
-                <Grid key={startup._id} item xs={12} sm={6} md={6}>
-                  <FounderCard key={founder._id} founder={founder} />
+                <Grid key={founder.firstName} item xs={12} sm={6} md={6}>
+                  <FounderCard founder={founder} />
                 </Grid>
               ))}
             </Grid>
@@ -163,29 +164,18 @@ const StartupCard = ({ startupId, handleEdit, handleAddFounder }) => {
         >
           <EditIcon />
         </IconButton>
-        <IconButton
-          color='error'
-          onClick={() => setShowConfirmationModal(true)}
-        >
+        <IconButton onClick={() => setShowConfirmationModal(true)}>
           <DeleteIcon color='error' />
         </IconButton>
-        {/* <Button
-          size='medium'
-          variant='outlined'
-          color='secondary'
-          onClick={() => setShowConfirmationModal(true)}
-        >
-          Supprimer la Startup
-        </Button> */}
       </CardActions>
     </Card>
   );
 };
 
 StartupCard.propTypes = {
-  startupId: Number.isRequired,
-  handleEdit: Function.isRequired,
-  handleAddFounder: Function.isRequired
+  startupId: PropTypes.string.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  handleAddFounder: PropTypes.func.isRequired
 };
 
 export default StartupCard;
